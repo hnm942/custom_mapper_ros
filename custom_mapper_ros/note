@@ -1,0 +1,13 @@
+Cần tập trung vào vấn đề xây dựng map:
+ Luồng pointcloud đi vào -> Lọc pointcloud -> Storage ->
+ Đưa nó lên map
+- Tập trung việc tạo map, tạo bản đồ ==> publish liên tục lúc build map
+==> global map quản lý việc khởi tạo và lưu 
+hay là obstace map sẽ quản lý việc này
+
+
+
+
+Phân tích rõ từng chức năng
+==> Global map: tập trung quản lý dữ liệu push, remove
+==> obstace map: sẽ lưu vị trí các 

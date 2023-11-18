@@ -10,6 +10,7 @@ namespace custom_mapper_ros
 
     void CustomMapperRos::getParams()
     {
+        
     }
 
     void CustomMapperRos::initSubcribers()
@@ -59,9 +60,15 @@ namespace custom_mapper_ros
         getParams();
         initSubcribers();
         initPublishers();
-
+        ros::Rate sleep_rate(20);
+        while(ros::ok())
+        {
+            ros::spinOnce();
+            sleep_rate.sleep();
+        }
         // start mapping thread
 
         // ros callback
+
     }
 }
