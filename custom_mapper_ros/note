@@ -9,5 +9,25 @@ hay là obstace map sẽ quản lý việc này
 
 
 Phân tích rõ từng chức năng
-==> Global map: tập trung quản lý dữ liệu push, remove
-==> obstace map: sẽ lưu vị trí các 
+==> Global map: tập trung quản lý dữ liệu push, remove các dữ liệu trong obstacle
+grid, cost grid và distance grid
+==> obstace map: sẽ lưu vị trí các obstacle
+??? cần giải quyết vấn đề association data
+==> Dữ liệu lưu trong obstacle sẽ là:
++ Mảng theo grid.
++ Mảng theo octree.
+
+==> Sau khi custom_mapper_ros <front end> đẩy thông tin sang custom mapper
+custom mapper sẽ buff nó vào buffer ??? truyền địa chỉ con trỏ hằng 
+
+
+Tổng kết:
+- Khi build map: 
+    gọi service 
+- Bình thường 
+    load map
+
+Map sẽ được biểu thị bằng voxel <sensor_msgs::PointCloud2>
+
+Association: ICP?? Ceres
+
