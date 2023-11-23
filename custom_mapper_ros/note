@@ -31,3 +31,45 @@ Map sẽ được biểu thị bằng voxel <sensor_msgs::PointCloud2>
 
 Association: ICP?? Ceres
 
+Các chức năng của voxel grid
+- Khởi tạo
+  VoxelGrid();
+  VoxelGrid(const double origin[3], const double world_dimensions[3], const double resolution);
+  VoxelGrid(const double origin[3], const int grid_dimensions[3], const double resolution, const std::vector<T>& data);
+- Lấy kích cỡ grid của map
+  void GetGridDimensions(int dimensions[3]) const
+- Biến đổi tạo độ world về tọa độ grid và ngược lại
+  void WorldToGrid(const double xyz[3], int ixyz[3]) const;
+  void GridToWorld(const int ixyz[3], double* xyz) const;
+  void IndexToGrid(int ind, int ixyz[3]) const;
+  void IndexToWorld(int ind, double xyz[3]) const;
+- Kiểm tra điểm này có trong map khoong
+  bool IsInMap(int index) const;
+  bool IsInMap(const int ixyz[3]) const;
+  bool IsInMap(const double xyz[3]) const;
+- Update Origin:
+  std::vector<int> UpdateOrigin(const double xyz[3]);
+  std::vector<int> UpdateOrigin(const double x, const double y, const double z);
+- Lấy thông tin về Biến
+  void WorldToVoxels(const double xyz[3], int voxels[3]) const;
+  int GetNumCells() const
+  std::vector<T> GetData() const
+  double GetResolution() const
+  void GetOrigin(double xyz[3]) const;
+  void PrintIndexes() const;
+  void PrintValues() const;
+  void PrintWorldX() const;
+  void PrintWorldZ() const;
+  void PrintState() const;
+  void ComputeShiftVoxels(const int new_lower_left_voxels[3], int voxel_shift[3]) const;
+  void Reset(T reset_value);
+  T ReadValue(const int ind) const;
+  T ReadValue(const int ixyz[3]) const;
+  T ReadValue(const double xyz[3]) const;
+  T ReadValue(const double x, const double y, const double z) const;
+- Ghi giá trị cho biến
+  void WriteValue(const int ixyz[3], T value);
+  void WriteValue(const double xyz[3], T value);
+  void WriteValue(const double x, const double y, const double z, T value);
+
+==> Quản lý map theo octree
