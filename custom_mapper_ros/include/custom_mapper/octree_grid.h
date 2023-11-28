@@ -119,6 +119,16 @@ namespace octree_grid
         }
     }; // end octree node
 
+    template <typename T>
+    class Octree
+    {
+        private:
+            OctreeNode<T>* root;
+
+        public:
+            Octree();
+            ~Octree();
+    }; // end Octree
 }
 
 #endif
