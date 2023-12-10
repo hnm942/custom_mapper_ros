@@ -72,4 +72,13 @@ Các chức năng của voxel grid
   void WriteValue(const double xyz[3], T value);
   void WriteValue(const double x, const double y, const double z, T value);
 
-==> Quản lý map theo octree
+==> Quản lý map theo octree, octree chỉ là một biến của voxel grid
+Các chức năng của occupancy grid 
+
+Nên tổ chức lưu Octree theo tọa độ grid vì dễ dàng cho việc tổ chức dữ liệu 
+
+
+==> Octree đầu vào sẽ là kiểu int, voxel map cụ thể occupancy grid sẽ có vai trò chuyển từ tọa độ world về tọa độ grid
+grid dimension nên là 2^n ==> unit test
+
+

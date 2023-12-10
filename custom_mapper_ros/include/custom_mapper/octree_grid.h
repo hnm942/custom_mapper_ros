@@ -3,32 +3,30 @@
 
 #include <iostream>
 #include <vector>
-
+#include <cmath>
 namespace octree_grid
 {
     struct OctreeConfig
     {
     };
-    template <typename T>
     struct Point
     {
-        Point();
-        Point(const T &x, connnnnst T &y, const T &z);
-        T x;
-        T y;
-        T z;
+        Point(){};
+        Point(const int &x, const int &y, const int &z){};
+        int x;
+        int y;
+        int z;
     };
 
-    template <typename T>
     struct OctreeNode
     {
-        T center[3];
-        T min_distance[3];
-        T max_distance[3];
-        T size;
+        int center[3];
+        int min_distance[3];
+        int max_distance[3];
+        int size;
         bool is_leaf;
         std::vector<OctreeNode *> children;
-        OctreeNode(T x, T y, T z, T size)
+        OctreeNode(int x, int y, int z, int size)
         {
             // get center
             center[0] = x;
@@ -60,7 +58,7 @@ namespace octree_grid
             - + +
             + + +
             */
-            T half_size = size / 2.;
+            int half_size = size / 2.;
             children[0] = new OctreeNode(center[0] - half_size, center[1] - half_size, center[2] - half_size, half_size);
             children[1] = new OctreeNode(center[0] + half_size, center[1] - half_size, center[2] - half_size, half_size);
             children[2] = new OctreeNode(center[0] - half_size, center[1] + half_size, center[2] - half_size, half_size);
@@ -71,15 +69,13 @@ namespace octree_grid
             children[7] = new OctreeNode(center[0] + half_size, center[1] + half_size, center[2] + half_size, half_size);
         }
 
-        void insert(const Point<T> &point)
+        bool insert(const Point &point)
         {
-            /* Check if point is exists in node
-            if true: insert in current node
-            else:
-            */
+            
+
         }
 
-        bool checkPointInside(const Point<T> &point)
+        bool checkPointInside(const Point &point)
         {
             /* check point inside node
             parameters
@@ -92,9 +88,9 @@ namespace octree_grid
                 point inside node or not
             */
 
-            return (point[0] >= min_distance[0] && point[0] <= max_distance[0] &&
-                    point[1] >= min_distance[1] && point[1] <= max_distance[1] &&
-                    point[2] >= min_distance[2] && point[2] <= max_distance[2]);
+            return (point.x >= min_distance[0] && point.x <= max_distance[0] &&
+                    point.y >= min_distance[1] && point.y <= max_distance[1] &&
+                    point.z >= min_distance[2] && point.z <= max_distance[2]);
         }
 
         bool checkLeaf()
@@ -119,16 +115,73 @@ namespace octree_grid
         }
     }; // end octree node
 
-    template <typename T>
     class Octree
     {
-        private:
-            OctreeNode<T>* root;
+    public:
+        Octree()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                grid_dimensions_[i] = 0;
+            }
+            resolution_ = 0;
+        }
+        Octree(const int grid_dimensions[3], double resolution)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                grid_dimensions_[i] = grid_dimensions[i];
+            }
+            resolution_ = resolution;
+        }
+        ~Octree()
+        {
+        }
+        // insert octreeNode
+        bool insertPoint(const double point[3])
+        {
+            int voxels[3];
+            for (int i = 0; i < 3; i++)
+            {
+                double float_voxels = std::floor(point[i] / resolution_ + 1e-6);
+                voxels[i] = static_cast<int>(float_voxels);
+            }
+            return insertPoint(voxels);
+        }
+        bool insertPoint(const int point[3])
+        {
+            Point point(point[0], point[1], point[2]);
+            return insertPoint(point);
+        }
 
-        public:
-            Octree();
-            ~Octree();
-    }; // end Octree
+        bool insertPoint(const Point point)
+        {
+            return root->insert(point);
+        }
+        // remove Node
+        bool deletePoint(const Point point)
+        {
+        }
+
+        // search
+        Point *searchPoint()
+        {
+        }
+        Point *searchPoints()
+        {
+        }
+
+        // print
+        void printPoint()
+        {
+        }
+
+    private:
+        OctreeNode *root;
+        int grid_dimensions_[3];
+        double resolution_;
+    };
+
 }
 
 #endif
