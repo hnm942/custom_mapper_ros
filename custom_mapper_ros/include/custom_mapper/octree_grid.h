@@ -71,9 +71,33 @@ namespace octree_grid
 
         bool insert(const Point &point)
         {
-            
-
         }
+
+        bool isPointInside(const Point &target)
+        {
+            if (
+                target.x >= min_distance[0] && target.x < max_distance[0] &&
+                target.y >= min_distance[1] && target.y < max_distance[1] &&
+                target.z >= min_distance[2] && target.z < max_distance[2])
+            {
+                return true;
+            }
+            return false;
+        }
+
+        bool isOctreeChild(const OctreeNode &child)
+        {
+            if (
+                child.center[0] >= min_distance[0] && child.center[0] < max_distance[0] &&
+                child.center[1] >= min_distance[1] && child.center[1] < max_distance[1] &&
+                child.center[2] >= min_distance[2] && child.center[2] < max_distance[2])
+            {
+                return true;
+            }
+            return false;
+        }
+
+        bool searchOctree
 
         bool checkPointInside(const Point &point)
         {
