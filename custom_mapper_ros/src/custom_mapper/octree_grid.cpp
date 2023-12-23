@@ -33,7 +33,7 @@ namespace octree_grid
         {
             grid_dimensions_[i] = grid_dimensions[i];
         }
-        grid_resolution_ = static_cast<int> ( grid_dimensions[0] / std::pow(2, max_depth_));
+        grid_resolution_ = static_cast<int>(grid_dimensions[0] / std::pow(2, max_depth_));
         root = new OctreeNode(0, 0, 0, grid_dimensions_[0], 0);
     }
 
@@ -65,23 +65,49 @@ namespace octree_grid
 
     bool Octree::insertNode(OctreeNode *node, const Point point, const int depth)
     {
-        if(node->depth == depth)
+        if (node->depth == depth)
         {
+            node->is_leaf = true;
             return true;
         }
         node->split();
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
-            if(node->children[i]->isPointInside(point))
+            if (node->children[i]->isPointInside(point))
             {
                 insertNode(node->children[i], point, depth);
             }
         }
     }
+
     // remove Node
-    bool Octree::deletePoint(const Point point)
+    bool Octree::deletePoint(const int point[3], const int depth)
     {
+        Point point(point[0], point[1], point[2]);
+        return deletePoint(point, depth);
     }
+
+    bool Octree::deletePoint(const Point &point, const int depth)
+    {
+        // find leaf
+        OctreeNode *node = search(point, depth);
+        return deleteNode(node);
+    }
+
+    bool Octree::deleteNode(OctreeNode *node)
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            if(node->children[i] != nullptr)
+            {
+                deleteNode(node->children[i]);
+            }
+            
+        }
+        delete node;
+        return true;
+    }
+
     void Octree::printPoint()
     {
     }
@@ -113,6 +139,7 @@ namespace octree_grid
             }
         }
     }
+
     // print
 
 } // namespace octree_grid

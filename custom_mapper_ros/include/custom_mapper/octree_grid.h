@@ -21,18 +21,20 @@ namespace octree_grid
         bool insertPoint(const int point[3]);
         bool insertPoint(const Point point);
         // remove Node
-        bool deletePoint(const Point point);
+        bool deletePoint(const int point[3], const int depth);
+        bool deletePoint(const Point& point, const int depth);
 
         // search
         OctreeNode *search(const int point[3], int depth = 0);
-        OctreeNode *search(const Point& point, int depth = 0);
+        OctreeNode *search(const Point &point, int depth = 0);
 
         // print
         void printPoint();
 
     private:
-        bool insertNode(OctreeNode* node, const Point point, int depth = 0);
-        OctreeNode *searchNode(OctreeNode* node, const Point& point,const int depth = 0);
+        bool insertNode(OctreeNode *node, const Point point, const int depth = 0);
+        bool deleteNode(OctreeNode *node);
+        OctreeNode *searchNode(OctreeNode *node, const Point &point, const int depth = 0);
         OctreeNode *root;
         int grid_dimensions_[3];
         double world_resolution_;
