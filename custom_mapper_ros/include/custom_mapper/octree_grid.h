@@ -14,7 +14,7 @@ namespace octree_grid
     public:
         Octree();
         Octree(const int grid_dimensions[3], const double world_resolution, const int grid_resolution);
-        Octree(const int grid_dimensions[3], const double world_resolution, const int max_depth);
+        Octree(const int grid_dimensions[3], const double world_resolution, const int grid_resolution, const int max_depth);
         ~Octree();
         // insert octreeNode
         bool insertPoint(const double point[3]);

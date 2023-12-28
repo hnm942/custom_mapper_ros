@@ -27,7 +27,7 @@ namespace octree_grid
         root = new OctreeNode(0, 0, 0, grid_dimensions_[0], 0);
     }
 
-    Octree::Octree(const int grid_dimensions[3], const double world_resolution, const int max_depth) : world_resolution_(world_resolution), max_depth_(max_depth)
+    Octree::Octree(const int grid_dimensions[3], const double world_resolution, const int grid_resolution, const int max_depth) : world_resolution_(world_resolution), grid_resolution_(grid_resolution), max_depth_(max_depth)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -52,9 +52,9 @@ namespace octree_grid
         }
         return insertPoint(voxels);
     }
-    bool Octree::insertPoint(const int point[3])
+    bool Octree::insertPoint(const int xyz[3])
     {
-        Point point(point[0], point[1], point[2]);
+        Point point(xyz[0], xyz[1], xyz[2]);
         return insertPoint(point);
     }
 
@@ -81,9 +81,9 @@ namespace octree_grid
     }
 
     // remove Node
-    bool Octree::deletePoint(const int point[3], const int depth)
+    bool Octree::deletePoint(const int xyz[3], const int depth)
     {
-        Point point(point[0], point[1], point[2]);
+        Point point(xyz[0], xyz[1], xyz[2]);
         return deletePoint(point, depth);
     }
 
@@ -96,14 +96,13 @@ namespace octree_grid
 
     bool Octree::deleteNode(OctreeNode *node)
     {
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
-            if(node->children[i] != nullptr)
+            if (node->children[i] != nullptr)
             {
                 deleteNode(node->children[i]);
-                node->children[i] = nullptr; 
+                node->children[i] = nullptr;
             }
-            
         }
         delete node;
         return true;
@@ -113,9 +112,9 @@ namespace octree_grid
     {
     }
     // search
-    OctreeNode *Octree::search(const int point[3], int depth)
+    OctreeNode *Octree::search(const int xyz[3], int depth)
     {
-        Point point(point[0], point[1], point[2]);
+        Point point(xyz[0], xyz[1], xyz[2]);
     }
     OctreeNode *Octree::search(const Point &point, int depth)
     {

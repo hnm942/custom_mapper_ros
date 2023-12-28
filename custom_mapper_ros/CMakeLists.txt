@@ -60,6 +60,11 @@ include_directories(
 
 
 
+add_library(custom_mapper 
+  src/custom_mapper/octree_grid.cpp)
+target_link_libraries(custom_mapper
+  ${catkin_LIBRARIES}
+  )
 
 add_library(custom_mapper_ros
   src/custom_mapper_ros/custom_mapper_ros.cpp

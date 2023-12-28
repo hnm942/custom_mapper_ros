@@ -38,3 +38,4 @@ if __name__ == "__main__":
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(pcl)
     o3d.visualization.draw_geometries([pcd])
+    o3d.io.write_point_cloud("point_cloud.ply", pcd)
