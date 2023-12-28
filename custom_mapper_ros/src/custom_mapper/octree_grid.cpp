@@ -101,6 +101,7 @@ namespace octree_grid
             if(node->children[i] != nullptr)
             {
                 deleteNode(node->children[i]);
+                node->children[i] = nullptr; 
             }
             
         }
