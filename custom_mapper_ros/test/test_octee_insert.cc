@@ -6,7 +6,7 @@
 int main()
 {
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    if(pcl::io::loadPLYFile<pcl::PointXYZ>("/home/huynm942/workspace/ws/src/custom_mapper/point_cloud.ply", *cloud))
+    if(pcl::io::loadPLYFile<pcl::PointXYZ>("/home/hnm942/workspace/src/custom_mapper_ros/custom_mapper_ros/data/rgbd_dataset_freiburg1_360.bag", *cloud))
     {
         std::cout << "Couldn't read file "<< std::endl;
     }
