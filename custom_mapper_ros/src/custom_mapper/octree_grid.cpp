@@ -15,24 +15,25 @@ namespace octree_grid
         root = new OctreeNode(0, 0, 0, grid_dimensions_[0], 0);
     }
 
-    Octree::Octree(const int grid_dimensions[3], const double world_resolution, const int grid_resolution) : world_resolution_(world_resolution), grid_resolution_(grid_resolution)
+    Octree::Octree(const int grid_dimensions[3], const float world_resolution, const int grid_resolution) : world_resolution_(world_resolution), grid_resolution_(grid_resolution)
     {
         for (int i = 0; i < 3; i++)
         {
             grid_dimensions_[i] = grid_dimensions[i];
         }
         // split ratio by x
-        double ratio = static_cast<double>(grid_dimensions[0]) / grid_resolution;
+        float ratio = static_cast<float>(grid_dimensions[0]) / grid_resolution;
         max_depth_ = static_cast<int>(log2(ratio));
         root = new OctreeNode(0, 0, 0, grid_dimensions_[0], 0);
     }
 
-    Octree::Octree(const int grid_dimensions[3], const double world_resolution, const int grid_resolution, const int max_depth) : world_resolution_(world_resolution), grid_resolution_(grid_resolution), max_depth_(max_depth)
+    Octree::Octree(const int grid_dimensions[3], const float world_resolution, const int grid_resolution, const int max_depth) : world_resolution_(world_resolution), grid_resolution_(grid_resolution), max_depth_(max_depth)
     {
         for (int i = 0; i < 3; i++)
         {
             grid_dimensions_[i] = grid_dimensions[i];
         }
+        std::cout << "grid dimension: " << grid_dimensions[0] << std::endl;
         grid_resolution_ = static_cast<int>(grid_dimensions[0] / std::pow(2, max_depth_));
         root = new OctreeNode(0, 0, 0, grid_dimensions_[0], 0);
     }
@@ -42,14 +43,15 @@ namespace octree_grid
         delete root;
     }
     // insert octreeNode
-    bool Octree::insertPoint(const double point[3])
+    bool Octree::insertPoint(const float point[3])
     {
         int voxels[3];
         for (int i = 0; i < 3; i++)
         {
-            double float_voxels = std::floor(point[i] / world_resolution_ + 1e-6);
+            float float_voxels = std::floor(point[i] / world_resolution_ + 1e-6);
             voxels[i] = static_cast<int>(float_voxels);
         }
+        std::cout << "insert point float " << std::endl;
         return insertPoint(voxels);
     }
     bool Octree::insertPoint(const int xyz[3])
@@ -73,11 +75,14 @@ namespace octree_grid
         node->split();
         for (int i = 0; i < 8; i++)
         {
+            // std::cout << "check node childrent: " << i << std::endl;
             if (node->children[i]->isPointInside(point))
             {
                 insertNode(node->children[i], point, depth);
             }
+            // std::cout << "end of insert node" << std::endl;
         }
+        return true;
     }
 
     // remove Node

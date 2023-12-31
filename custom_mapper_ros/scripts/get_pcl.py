@@ -35,7 +35,7 @@ if __name__ == "__main__":
         pcd = o3d.geometry.PointCloud()
         pcd.points = o3d.utility.Vector3dVector(pcl)
         # o3d.visualization.draw_geometries([pcd])
-        o3d.io.write_point_cloud("/home/hnm942/workspace/src/custom_mapper_ros/custom_mapper_ros/data/rgbd_dataset_freiburg1_360/point_cloud_{}.ply".format(t.secs), pcd)
+        o3d.io.write_point_cloud("/home/hnm942/workspace/src/custom_mapper_ros/custom_mapper_ros/data/rgbd_dataset_freiburg1_360/point_cloud_{}.ply".format(t.secs), pcd, write_ascii=True)
     bag.close()
 
     

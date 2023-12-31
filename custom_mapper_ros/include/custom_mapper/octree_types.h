@@ -27,7 +27,7 @@ namespace octree_grid
         bool is_leaf;
         int depth;
         std::vector<OctreeNode *> children;
-        OctreeNode(int x, int y, int z, int size, int depth)
+        OctreeNode(int x, int y, int z, int size, int depth):size(size)
         {
             // get center
             center[0] = x;

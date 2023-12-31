@@ -13,11 +13,11 @@ namespace octree_grid
     {
     public:
         Octree();
-        Octree(const int grid_dimensions[3], const double world_resolution, const int grid_resolution);
-        Octree(const int grid_dimensions[3], const double world_resolution, const int grid_resolution, const int max_depth);
+        Octree(const int grid_dimensions[3], const float world_resolution, const int grid_resolution);
+        Octree(const int grid_dimensions[3], const float world_resolution, const int grid_resolution, const int max_depth);
         ~Octree();
         // insert octreeNode
-        bool insertPoint(const double point[3]);
+        bool insertPoint(const float point[3]);
         bool insertPoint(const int point[3]);
         bool insertPoint(const Point point);
         // remove Node
@@ -37,7 +37,7 @@ namespace octree_grid
         OctreeNode *searchNode(OctreeNode *node, const Point &point, const int depth = 0);
         OctreeNode *root;
         int grid_dimensions_[3];
-        double world_resolution_;
+        float world_resolution_;
         int max_depth_;
         int grid_resolution_;
     };
