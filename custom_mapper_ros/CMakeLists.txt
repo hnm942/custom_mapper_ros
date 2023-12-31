@@ -20,7 +20,6 @@ endif (NOT CMAKE_BUILD_TYPE)
 set(REQ_CATKIN_PKGS   
   roscpp
   nodelet
-  fla_utils
   pcl_ros
   pcl_msgs
   pcl_conversions
@@ -30,16 +29,12 @@ set(REQ_CATKIN_PKGS
   tf2_sensor_msgs
   message_generation
   image_transport
-  cv_bridge
-  fla_msgs
-  snapstack_msgs
-  )
+  cv_bridge  )
 find_package(catkin REQUIRED COMPONENTS ${REQ_CATKIN_PKGS})
 
 # find system dependencies
 find_package(PCL 1.7 REQUIRED COMPONENTS common)
 find_package(Eigen3 REQUIRED)
-find_package(global_mapper REQUIRED)
 
 # setup downstream dependencies
 catkin_package(
@@ -60,9 +55,9 @@ include_directories(
 
 
 
-add_library(custom_mapper 
+add_library(octree_grid 
   src/custom_mapper/octree_grid.cpp)
-target_link_libraries(custom_mapper
+target_link_libraries(octree_grid
   ${catkin_LIBRARIES}
   )
 
@@ -81,3 +76,10 @@ target_link_libraries(custom_mapper_node
   ${catkin_LIBRARIES}
   custom_mapper_ros
   )
+
+ # test case
+ add_executable(octree_insert test/test_octree_insert.cc)
+ target_link_libraries(octree_insert
+      ${catkin_LIBRARIES}
+      octree_grid
+ )
